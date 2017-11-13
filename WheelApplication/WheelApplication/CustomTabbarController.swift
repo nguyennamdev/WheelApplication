@@ -15,19 +15,26 @@ class CustomTabbarController : UITabBarController{
     var context:NSManagedObjectContext?
     var user:User?{
         didSet{
-            print(user?.name)
+            print(user?.name ?? "")
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
     
+    }
+    
+  
+    override func viewDidAppear(_ animated: Bool) {
+        UINavigationBar.appearance().backgroundColor = #colorLiteral(red: 0.1764705926, green: 0.4980392158, blue: 0.7568627596, alpha: 1)
         UITabBar.appearance().tintColor = UIColor.black
-        let HomeController = UIViewController()
-        let HomeNavigationController = UINavigationController(rootViewController: HomeController)
-        HomeController.tabBarItem = customTabbarItem(image: UIImage(named: "home")!)
-        HomeController.view.backgroundColor = UIColor.blue
-       
+        
+        let homeOrdererController = HomeOrdererController()
+        let HomeNavigationController = UINavigationController(rootViewController: homeOrdererController)
+        homeOrdererController.tabBarItem = customTabbarItem(image: UIImage(named: "home")!)
+    
+        
+        
         let NotificationController = UIViewController()
         let NotificationNavigationController = UINavigationController(rootViewController: NotificationController)
         NotificationController.tabBarItem = customTabbarItem(image: UIImage(named: "bell")!)
@@ -38,15 +45,13 @@ class CustomTabbarController : UITabBarController{
         HistoryController.tabBarItem = customTabbarItem(image: UIImage(named: "list")!)
         HistoryController.view.backgroundColor = UIColor.cyan
         
-
+        
         let UserController = UIViewController()
         let UserNavigationController = UINavigationController(rootViewController: UserController)
         UserController.tabBarItem = customTabbarItem(image: UIImage(named: "user")!)
         viewControllers = [HomeNavigationController,NotificationNavigationController,HistoryNavigationController,UserNavigationController]
-    }
-    
-    
-    override func viewDidAppear(_ animated: Bool) {
+
+        
         let fetchUserResult:NSFetchRequest<User> = User.fetchRequest()
         do{
             let user = try!context?.fetch(fetchUserResult)
