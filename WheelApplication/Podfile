@@ -1,0 +1,8 @@
+use_frameworks!
+
+target 'WheelApplication' do
+	pod 'FBSDKCoreKit'
+	pod 'FBSDKShareKit'
+	pod 'FBSDKLoginKit'
+	pod 'Socket.IO-Client-Swift' 
+end
