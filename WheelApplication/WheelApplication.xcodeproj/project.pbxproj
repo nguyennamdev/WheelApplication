@@ -10,6 +10,11 @@
 		824E574319BD650A34E3CDE3 /* Pods_WheelApplication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40F7017DD2FE6F2F189B84E5 /* Pods_WheelApplication.framework */; };
 		8401AB421FB97F99008A93E4 /* HomeOrdererController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8401AB411FB97F99008A93E4 /* HomeOrdererController.swift */; };
 		8401AB461FB9E377008A93E4 /* HomeOrdererController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8401AB451FB9E377008A93E4 /* HomeOrdererController+Extensions.swift */; };
+		84A1A1001FBAE87B00356A32 /* UserEntryInfoController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A1A0FF1FBAE87B00356A32 /* UserEntryInfoController+Extensions.swift */; };
+		84A1A1021FBAE95400356A32 /* MainNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A1A1011FBAE95400356A32 /* MainNavigationController.swift */; };
+		84A1A1041FBAF4A300356A32 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84A1A1031FBAF4A300356A32 /* CoreLocation.framework */; };
+		84A1A1061FBAF4B200356A32 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84A1A1051FBAF4B200356A32 /* MapKit.framework */; };
+		84A1A1081FBAFDE700356A32 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A1A1071FBAFDE700356A32 /* Address.swift */; };
 		84A80F491FB7EB54001E67B3 /* RestApiHandle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A80F481FB7EB54001E67B3 /* RestApiHandle.swift */; };
 		84D66ACF1FAFFFCD0060F1AA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D66ACE1FAFFFCD0060F1AA /* AppDelegate.swift */; };
 		84D66AD41FAFFFCD0060F1AA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84D66AD21FAFFFCD0060F1AA /* Main.storyboard */; };
@@ -20,7 +25,6 @@
 		84D66AF61FB003E30060F1AA /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D66AF51FB003E30060F1AA /* UIViewExtensions.swift */; };
 		84D66AF81FB004470060F1AA /* CustomTabbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D66AF71FB004470060F1AA /* CustomTabbarController.swift */; };
 		84D66AFA1FB00EDE0060F1AA /* UserDefaultExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D66AF91FB00EDE0060F1AA /* UserDefaultExtensions.swift */; };
-		84D66AFC1FB010C70060F1AA /* MainNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D66AFB1FB010C70060F1AA /* MainNavigationController.swift */; };
 		84D66AFE1FB011D70060F1AA /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D66AFD1FB011D70060F1AA /* LoginController.swift */; };
 		84D66B001FB05F380060F1AA /* UserEntryInforController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D66AFF1FB05F380060F1AA /* UserEntryInforController.swift */; };
 /* End PBXBuildFile section */
@@ -41,6 +45,11 @@
 		503470396D233D5A07D717BD /* Pods-WheelApplication.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WheelApplication.release.xcconfig"; path = "Pods/Target Support Files/Pods-WheelApplication/Pods-WheelApplication.release.xcconfig"; sourceTree = "<group>"; };
 		8401AB411FB97F99008A93E4 /* HomeOrdererController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeOrdererController.swift; sourceTree = "<group>"; };
 		8401AB451FB9E377008A93E4 /* HomeOrdererController+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "HomeOrdererController+Extensions.swift"; sourceTree = "<group>"; };
+		84A1A0FF1FBAE87B00356A32 /* UserEntryInfoController+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UserEntryInfoController+Extensions.swift"; sourceTree = "<group>"; };
+		84A1A1011FBAE95400356A32 /* MainNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainNavigationController.swift; sourceTree = "<group>"; };
+		84A1A1031FBAF4A300356A32 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		84A1A1051FBAF4B200356A32 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		84A1A1071FBAFDE700356A32 /* Address.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 		84A80F481FB7EB54001E67B3 /* RestApiHandle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestApiHandle.swift; sourceTree = "<group>"; };
 		84D66ACB1FAFFFCD0060F1AA /* WheelApplication.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WheelApplication.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84D66ACE1FAFFFCD0060F1AA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -55,7 +64,6 @@
 		84D66AF51FB003E30060F1AA /* UIViewExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewExtensions.swift; sourceTree = "<group>"; };
 		84D66AF71FB004470060F1AA /* CustomTabbarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTabbarController.swift; sourceTree = "<group>"; };
 		84D66AF91FB00EDE0060F1AA /* UserDefaultExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultExtensions.swift; sourceTree = "<group>"; };
-		84D66AFB1FB010C70060F1AA /* MainNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainNavigationController.swift; sourceTree = "<group>"; };
 		84D66AFD1FB011D70060F1AA /* LoginController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		84D66AFF1FB05F380060F1AA /* UserEntryInforController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserEntryInforController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -65,6 +73,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84A1A1061FBAF4B200356A32 /* MapKit.framework in Frameworks */,
+				84A1A1041FBAF4A300356A32 /* CoreLocation.framework in Frameworks */,
 				824E574319BD650A34E3CDE3 /* Pods_WheelApplication.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -102,6 +112,7 @@
 			children = (
 				84D66AFD1FB011D70060F1AA /* LoginController.swift */,
 				84D66AFF1FB05F380060F1AA /* UserEntryInforController.swift */,
+				84A1A0FF1FBAE87B00356A32 /* UserEntryInfoController+Extensions.swift */,
 			);
 			name = Login;
 			sourceTree = "<group>";
@@ -162,6 +173,7 @@
 		84D66AF21FB002EF0060F1AA /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				84A1A1071FBAFDE700356A32 /* Address.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -172,7 +184,7 @@
 				8401AB401FB97F7A008A93E4 /* Home */,
 				8481701C1FB305410062DC4B /* Login */,
 				84D66AF71FB004470060F1AA /* CustomTabbarController.swift */,
-				84D66AFB1FB010C70060F1AA /* MainNavigationController.swift */,
+				84A1A1011FBAE95400356A32 /* MainNavigationController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -190,6 +202,8 @@
 		E5481CEBD086F8584156CE36 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				84A1A1051FBAF4B200356A32 /* MapKit.framework */,
+				84A1A1031FBAF4A300356A32 /* CoreLocation.framework */,
 				40F7017DD2FE6F2F189B84E5 /* Pods_WheelApplication.framework */,
 			);
 			name = Frameworks;
@@ -375,12 +389,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				84D66AFC1FB010C70060F1AA /* MainNavigationController.swift in Sources */,
+				84A1A1001FBAE87B00356A32 /* UserEntryInfoController+Extensions.swift in Sources */,
 				84D66AF81FB004470060F1AA /* CustomTabbarController.swift in Sources */,
+				84A1A1081FBAFDE700356A32 /* Address.swift in Sources */,
 				84D66ACF1FAFFFCD0060F1AA /* AppDelegate.swift in Sources */,
 				84D66B001FB05F380060F1AA /* UserEntryInforController.swift in Sources */,
 				8401AB461FB9E377008A93E4 /* HomeOrdererController+Extensions.swift in Sources */,
 				8401AB421FB97F99008A93E4 /* HomeOrdererController.swift in Sources */,
+				84A1A1021FBAE95400356A32 /* MainNavigationController.swift in Sources */,
 				84A80F491FB7EB54001E67B3 /* RestApiHandle.swift in Sources */,
 				84D66AF61FB003E30060F1AA /* UIViewExtensions.swift in Sources */,
 				84D66AFA1FB00EDE0060F1AA /* UserDefaultExtensions.swift in Sources */,

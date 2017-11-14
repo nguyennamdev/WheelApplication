@@ -48,9 +48,8 @@ class LoginController : UIViewController, FBSDKLoginButtonDelegate{
         fetchProfileUser { (user) in
             self.user = user
             let userEntryInforController = UserEntryInforController()
-            print(self.user?.userId)
             userEntryInforController.user = self.user
-            userEntryInforController.context = self.context 
+            userEntryInforController.context = self.context
             let rootViewController = UIApplication.shared.keyWindow?.rootViewController
             guard let mainNavigation = rootViewController as? MainNavigationController else{
                 return

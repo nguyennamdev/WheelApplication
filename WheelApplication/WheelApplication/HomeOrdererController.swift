@@ -7,13 +7,13 @@
 //
 
 import UIKit
+import CoreLocation
 
-class HomeOrdererController : UIViewController , UITextFieldDelegate {
-    
-    
+class HomeOrdererController : UIViewController , UITextFieldDelegate, CLLocationManagerDelegate  {
+   
+    var address:Address?
+    var locationManager:CLLocationManager?
     // layout contraints
-    var addressSegmentHeightConstaint:NSLayoutConstraint?
-    var entryViewHeightContraint:NSLayoutConstraint?
     var bookButtonBottomContaint:NSLayoutConstraint?
     
     override func viewDidLoad() {
@@ -27,12 +27,27 @@ class HomeOrdererController : UIViewController , UITextFieldDelegate {
         priceTextField.delegate = self
         phoneReceiverTextField.delegate = self
         descriptionTextField.delegate = self
-        navigationController?.navigationBar.topItem?.title = "Đơn đặt hàng"
         
         let tapGesture = UITapGestureRecognizer()
         tapGesture.addTarget(self, action: #selector(endEdit))
         view.addGestureRecognizer(tapGesture)
-        
+        // set up location manager
+        locationManager = CLLocationManager()
+        locationManager?.delegate = self
+        locationManager?.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager?.requestWhenInUseAuthorization()
+        locationManager?.requestAlwaysAuthorization()
+        DispatchQueue.main.async {
+            self.locationManager?.startUpdatingLocation()
+        }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        navigationController?.navigationBar.topItem?.title = "Đơn đặt hàng"
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+     
     }
     
     func setupViews() {
@@ -42,10 +57,8 @@ class HomeOrdererController : UIViewController , UITextFieldDelegate {
         bottomEntrySetupViews()
         entryViewSetupViews()
         // contraint
-        entryViewContainner.anchorWithConstants(top: topLayoutGuide.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, topConstant: 0, leftConstant: 12, bottomConstant: 0, rightConstant: 12)
-        
-        entryViewHeightContraint = NSLayoutConstraint(item: entryViewContainner, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 110)
-        view.addConstraint(entryViewHeightContraint!)
+        entryViewContainner.anchorWithConstants(top: topLayoutGuide.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, topConstant: 8, leftConstant: 12, bottomConstant: 0, rightConstant: 12)
+        entryViewContainner.heightAnchor.constraint(equalToConstant: 140).isActive = true
         
         bottomEntryViewContainer.anchorWithConstants(top: nil, left: view.leftAnchor, bottom: bookButton.topAnchor, right: view.rightAnchor, topConstant: 0, leftConstant: 12, bottomConstant: 12, rightConstant: 12)
         bottomEntryViewContainer.heightAnchor.constraint(equalToConstant: 210).isActive = true
@@ -59,21 +72,33 @@ class HomeOrdererController : UIViewController , UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         switch textField.tag {
         case 0:
-            entryAddressAnimate(option: .transitionCurlDown, heightContraint: 140, heignContraint: 30, isHidden: false)
             startAddressImage.image = #imageLiteral(resourceName: "cursor")
+            handleHeightBottomEntryContainerKeyboardHide()
+            if self.addressSegmentControl.selectedSegmentIndex == 0 {
+                if self.address != nil{
+                    self.startAddressTextField.text = (self.address?.name)! + ", " + (self.address?.city)! + ", " + (self.address?.country)!
+                }
+            }
+            else{
+                self.startAddressTextField.text = ""
+            }
         case 1:
-            entryAddressAnimate(option: .transitionCurlUp, heightContraint: 110, heignContraint: 0, isHidden: true)
+    
             endAddressImage.image = #imageLiteral(resourceName: "route-isselect")
-        
+            handleHeightBottomEntryContainerKeyboardHide()
         case 2:
             prepaymentImageView.image = #imageLiteral(resourceName: "coin-select")
-            
+            handleHeightBottomEntryContainerKeyboardShowing()
+
         case 3:
             priceImageView.image = #imageLiteral(resourceName: "coin-select")
+            handleHeightBottomEntryContainerKeyboardShowing()
         case 4:
             callImageView.image = #imageLiteral(resourceName: "call-answer-select")
+            handleHeightBottomEntryContainerKeyboardShowing()
         case 5:
             descriptionImageView.image = #imageLiteral(resourceName: "edit-pencil-symbol-select")
+            handleHeightBottomEntryContainerKeyboardShowing()
         default:
             print("Don't have any text field")
         }
@@ -82,25 +107,26 @@ class HomeOrdererController : UIViewController , UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         switch textField.tag {
         case 0:
-            entryAddressAnimate(option: .transitionCurlUp, heightContraint: 110, heignContraint: 0, isHidden: true)
             startAddressImage.image = #imageLiteral(resourceName: "gps-fixed-indicator")
         case 1:
             endAddressImage.image = #imageLiteral(resourceName: "route")
         case 2:
             prepaymentImageView.image = #imageLiteral(resourceName: "coin")
-            handleHeightBottomEntryContainerKeyboardShowing(notification: Notification(name:
-            .UIKeyboardWillShow))
+            handleHeightBottomEntryContainerKeyboardHide()
         case 3:
             priceImageView.image = #imageLiteral(resourceName: "coin")
+            handleHeightBottomEntryContainerKeyboardHide()
         case 4:
             callImageView.image = #imageLiteral(resourceName: "call-answer")
+            handleHeightBottomEntryContainerKeyboardHide()
         case 5:
             descriptionImageView.image = #imageLiteral(resourceName: "edit-pencil-symbol")
+            handleHeightBottomEntryContainerKeyboardHide()
         default:
             print("Don't have any text field")
         }
         
-        
+    
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -113,11 +139,47 @@ class HomeOrdererController : UIViewController , UITextFieldDelegate {
         return true
     }
     
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        
+        guard let location = locations.last else {
+            return
+        }
+        let geocoder = CLGeocoder()
+        self.address = Address()
+        geocoder.reverseGeocodeLocation(location) { (placeMarks, err) in
+            let addressDictionary = placeMarks?[0].addressDictionary
+            self.address?.name = (addressDictionary?["Name"] as? String)!
+            self.address?.city = (addressDictionary?["City"] as? String)!
+            self.address?.country = (addressDictionary?["Country"] as? String)!
+            self.address?.state = (addressDictionary?["State"] as? String)!
+            self.address?.street = (addressDictionary?["SubLocality"] as? String)!
+            
+            if self.addressSegmentControl.selectedSegmentIndex == 0 {
+                self.startAddressTextField.text = (self.address?.name)! + ", " + (self.address?.city)! + ", " + (self.address?.country)!
+            }
+        }
+        
+    }
+    
     @objc func endEdit() {
         view.endEditing(true)
     }
     
-  
+    @objc func segmentChange(sender:UISegmentedControl){
+        switch sender.selectedSegmentIndex {
+        case 0:
+            if self.address != nil{
+                self.startAddressTextField.text = (self.address?.name)! + ", " + (self.address?.city)! + ", " + (self.address?.country)!
+            }
+        case 1:
+            self.startAddressTextField.text = ""
+        default:
+            print("Don't change value")
+        }
+    }
+    
+    //////////////////////////////////////////
     
     // views
     let entryViewContainner:UIView = {
@@ -158,7 +220,7 @@ class HomeOrdererController : UIViewController , UITextFieldDelegate {
         let segment = UISegmentedControl(items: ["Hiện tại", "Khác"])
         segment.tintColor = #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)
         segment.selectedSegmentIndex = 0
-        segment.isHidden = true
+        segment.addTarget(self, action: #selector(segmentChange(sender:)), for: UIControlEvents.valueChanged)
         segment.translatesAutoresizingMaskIntoConstraints = false
         return segment
     }()

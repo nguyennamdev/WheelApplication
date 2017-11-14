@@ -7,27 +7,16 @@
 //
 
 import UIKit
-
+import CoreLocation
 
 extension HomeOrdererController{
     // animate
-    func entryAddressAnimate(option:UIViewAnimationOptions,  heightContraint entry:CGFloat,  heignContraint address: CGFloat ,isHidden: Bool){
-        entryViewHeightContraint?.constant = entry
-        addressSegmentHeightConstaint?.constant = address
-        addressSegmentControl.isHidden = isHidden
-        UIView.animate(withDuration: 0.5, delay: 0, options: option, animations: {
+    func handleHeightBottomEntryContainerKeyboardShowing(){
+        bookButtonBottomContaint?.constant = -100
+        UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseOut, animations: {
             self.view.layoutIfNeeded()
         }, completion: nil)
-    }
-    
-    func handleHeightBottomEntryContainerKeyboardShowing(notification:Notification){
-        if let userInfo = notification.userInfo{
-            let keyboardFrame = userInfo[UIKeyboardFrameEndUserInfoKey] as! CGRect
-            bookButtonBottomContaint?.constant = -(keyboardFrame.height - bottomLayoutGuide.length + 8)
-                UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseOut, animations: {
-                    self.view.layoutIfNeeded()
-                }, completion: nil)
-        }
+        
     }
     
     func handleHeightBottomEntryContainerKeyboardHide(){
@@ -36,6 +25,7 @@ extension HomeOrdererController{
             self.view.layoutIfNeeded()
         }, completion: nil)
     }
+    
 }
 
 // setup views
@@ -50,8 +40,7 @@ extension HomeOrdererController{
         
         // set contraint
         addressSegmentControl.anchorWithConstants(top: entryViewContainner.topAnchor, left: entryViewContainner.leftAnchor, bottom: nil, right: entryViewContainner.rightAnchor, topConstant: 12, leftConstant: 12, bottomConstant: 0, rightConstant: 12)
-        addressSegmentHeightConstaint = NSLayoutConstraint(item: addressSegmentControl, attribute: .height, relatedBy: .equal , toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 0)
-        entryViewContainner.addConstraint(addressSegmentHeightConstaint!)
+        addressSegmentControl.heightAnchor.constraint(equalToConstant: 30).isActive = true
         
         startAddressImage.anchorWithWidthHeightConstant(top: addressSegmentControl.bottomAnchor, left: entryViewContainner.leftAnchor, bottom: nil, right: nil, topConstant: 8, leftConstant: 12, bottomConstant: 0, rightConstant: 0, widthConstant: 35, heightConstant: 35)
         

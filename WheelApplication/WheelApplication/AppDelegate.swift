@@ -22,12 +22,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.makeKeyAndVisible()
         
         let mainNavigationController = MainNavigationController()
-        UINavigationBar.appearance().backgroundColor = UIColor.white
+        UINavigationBar.appearance().backgroundColor = #colorLiteral(red: 0.1764705926, green: 0.4980392158, blue: 0.7568627596, alpha: 1)
         window?.rootViewController = mainNavigationController
         
-        
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
-        
         return true
     }
     
