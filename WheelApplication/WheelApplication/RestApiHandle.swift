@@ -6,6 +6,7 @@
 //  Copyright © 2017 Nguyen Nam. All rights reserved.
 //
 
+import CoreLocation
 import UIKit
 
 class RestApiHandle: NSObject {
@@ -56,12 +57,72 @@ extension RestApiHandle{
     public func updateUserToDatabase(user:User){
         insertEditUser(method: "PUT", path: "update_a_user", user: user)
     }
-
+    
 }
 
-
-
-
+extension RestApiHandle {
+    // api for post
+    
+    public func insertEditPost(method:String, path:String, post:Post , locationStart:CLLocation , locationEnd:CLLocation, completeHandler:@escaping (_ isComplete:Bool) -> ()){
+        // parse locations
+        let latitudeStart:Double = locationStart.coordinate.latitude
+        let longtitudeStart:Double = locationStart.coordinate.longitude
+        let latitudeEnd:Double = locationEnd.coordinate.latitude
+        let longtitudeEnd:Double  = locationEnd.coordinate.longitude
+        
+        let url = URL(string: "http://localhost:8000/posts/\(path)")
+        var request = URLRequest(url: url!)
+        request.setValue("Application/json", forHTTPHeaderField: "Content-Type")
+        request.httpMethod = method
+        let parameters = ["postId": post.postId! , "userId" : post.user!.userId! , "prepayment" : post.prepayment,
+                          "price":post.price , "phoneReceiver" : post.phoneReceiver! , "addressStart": post.addressStart!,
+                          "addressDestination" : post.addressDestination! , "latitudeStart" : latitudeStart,
+                          "longtitudeStart" :longtitudeStart, "latitudeEnd" :latitudeEnd,
+                          "longtitudeEnd" : longtitudeEnd, "description" : post.descriptionText!] as [String : Any]
+        guard let httpBody = try?JSONSerialization.data(withJSONObject: parameters, options: []) else {
+            return
+        }
+        request.httpBody = httpBody
+        dataTaskURLRequest(urlRequest: request) { (isComplete) in
+            completeHandler(isComplete)
+        }
+    }
+    
+    public func deletePost(postId:String, completeHandle:@escaping (Bool) -> ()){
+        let url = URL(string: "http://localhost:8000/posts/delete_a_post")
+        var request = URLRequest(url: url!)
+        request.setValue("Application/json", forHTTPHeaderField: "Content-Type")
+        request.httpMethod = "DELETE"
+        let parameters = ["postId": postId] as [String : Any]
+        guard let httpBody = try?JSONSerialization.data(withJSONObject: parameters, options: []) else {
+            return
+        }
+        request.httpBody = httpBody
+        dataTaskURLRequest(urlRequest: request) { (isComplete) in
+            completeHandle(isComplete)
+        }
+    }
+    
+    private func dataTaskURLRequest(urlRequest:URLRequest , completeHandler:@escaping (_ isComplete:Bool) -> ()){
+        // create task using the session object to send data to the server
+        URLSession.shared.dataTask(with: urlRequest) { (data, response, err) in
+            if err != nil{
+                return
+            }
+            guard let jsonData = data else{
+                return
+            }
+            do {
+                if let json = try?JSONSerialization.jsonObject(with: jsonData, options: .mutableContainers) {
+                    let dictionary = json as? [String:AnyObject]
+                    let result = dictionary?["result"] as? String
+                    completeHandler(result == "OK" ? true : false)
+                }
+            }
+        }.resume()
+        
+    }
+}
 
 
 

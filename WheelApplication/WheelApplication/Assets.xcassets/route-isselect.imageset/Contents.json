@@ -2,11 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "route-isselect.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "route-isselect.png",
       "scale" : "2x"
     },
     {

@@ -23,7 +23,7 @@ class UserEntryInforController : UIViewController, UITextFieldDelegate, UIPicker
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        view.backgroundColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
         navigationItem.title = "Nhập Thông Tin"
         // add subviews
         view.addSubview(topViewContainer)

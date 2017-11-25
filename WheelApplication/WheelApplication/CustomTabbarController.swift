@@ -20,7 +20,7 @@ class CustomTabbarController : UITabBarController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = " "
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -29,7 +29,7 @@ class CustomTabbarController : UITabBarController{
             let user = try!context?.fetch(fetchUserResult)
             self.user = user?[0]
         }
-        setViewControllers()
+         setViewControllers()
     }
     
     
@@ -41,23 +41,22 @@ class CustomTabbarController : UITabBarController{
     
     
     func setViewControllers(){
-        UITabBar.appearance().tintColor = #colorLiteral(red: 0.1764705926, green: 0.4980392158, blue: 0.7568627596, alpha: 1)
+        UITabBar.appearance().tintColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         let homeOrdererController = HomeOrdererController()
         homeOrdererController.tabBarItem = customTabbarItem(image: UIImage(named: "home")!)
-        homeOrdererController.navigationItem.title = "Đơn đặt hàng"
+        homeOrdererController.context = self.context!
+        homeOrdererController.user = self.user!
         
-        let NotificationController = UIViewController()
-        NotificationController.tabBarItem = customTabbarItem(image: UIImage(named: "bell")!)
-        NotificationController.view.backgroundColor = UIColor.brown
-        
-        let HistoryController = UIViewController()
-        HistoryController.tabBarItem = customTabbarItem(image: UIImage(named: "list")!)
-        HistoryController.view.backgroundColor = UIColor.cyan
+        let historyController = HistoryController()
+        historyController.tabBarItem = customTabbarItem(image: UIImage(named: "list")!)
+        historyController.context = self.context!
+        historyController.user = self.user!
         
         let UserController = UIViewController()
         UserController.tabBarItem = customTabbarItem(image: UIImage(named: "user")!)
         
-        viewControllers = [homeOrdererController,NotificationController,HistoryController,UserController]
+//        viewControllers = [homeOrdererController,historyController,UserController]
+        viewControllers = [homeOrdererController,historyController]
     }
     
     

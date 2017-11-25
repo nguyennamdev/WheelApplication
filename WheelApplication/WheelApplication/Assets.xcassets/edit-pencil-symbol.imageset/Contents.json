@@ -2,11 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "edit-pencil-symbol.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "edit-pencil-symbol.png",
       "scale" : "2x"
     },
     {

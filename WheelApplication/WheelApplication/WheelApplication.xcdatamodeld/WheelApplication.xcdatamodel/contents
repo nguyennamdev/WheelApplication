@@ -1,22 +1,27 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="12141" systemVersion="16E195" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="Location" representedClassName="Location" syncable="YES" codeGenerationType="class">
-        <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="longtitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
-        <relationship name="endPost" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Post" inverseName="endAddress" inverseEntity="Post" syncable="YES"/>
-        <relationship name="startPost" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Post" inverseName="startAddress" inverseEntity="Post" syncable="YES"/>
+    <entity name="Address" representedClassName=".Address" syncable="YES">
+        <attribute name="city" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="country" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="state" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="street" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="post" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Post" inverseName="address" inverseEntity="Post" syncable="YES"/>
     </entity>
-    <entity name="Post" representedClassName="Post" syncable="YES" codeGenerationType="class">
-        <attribute name="isComplete" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+    <entity name="Post" representedClassName=".Post" syncable="YES">
+        <attribute name="addressDestination" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="addressStart" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="date" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="descriptionText" optional="YES" attributeType="String" defaultValueString="&quot;&quot;" syncable="YES"/>
+        <attribute name="isComplete" optional="YES" attributeType="Boolean" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="phoneReceiver" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="postId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="prepayment" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="price" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
-        <relationship name="endAddress" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Location" inverseName="endPost" inverseEntity="Location" syncable="YES"/>
-        <relationship name="startAddress" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Location" inverseName="startPost" inverseEntity="Location" syncable="YES"/>
+        <relationship name="address" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Address" inverseName="post" inverseEntity="Address" syncable="YES"/>
         <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="posts" inverseEntity="User" syncable="YES"/>
     </entity>
-    <entity name="User" representedClassName="User" syncable="YES" codeGenerationType="class">
+    <entity name="User" representedClassName=".User" syncable="YES">
         <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="imageUrl" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
@@ -27,8 +32,8 @@
         <relationship name="posts" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Post" inverseName="user" inverseEntity="Post" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Location" positionX="-189" positionY="108" width="128" height="103"/>
-        <element name="Post" positionX="-459" positionY="332" width="128" height="163"/>
-        <element name="User" positionX="-434" positionY="-15" width="128" height="163"/>
+        <element name="Address" positionX="-153" positionY="288" width="128" height="135"/>
+        <element name="Post" positionX="-398" positionY="324" width="128" height="208"/>
+        <element name="User" positionX="-594" positionY="243" width="128" height="163"/>
     </elements>
 </model>
