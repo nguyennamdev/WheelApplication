@@ -11,6 +11,7 @@ import CoreData
 
 class UserEntryInforController : UIViewController, UITextFieldDelegate, UIPickerViewDelegate,UIPickerViewDataSource{
     
+    var userViewController:UserViewController? // init when user edit infor
     var user:User?
     var context:NSManagedObjectContext?
     let restApiHandle = RestApiHandle.getInstance()

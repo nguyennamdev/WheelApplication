@@ -26,8 +26,11 @@ class CustomTabbarController : UITabBarController{
     override func viewDidAppear(_ animated: Bool) {
         let fetchUserResult:NSFetchRequest<User> = User.fetchRequest()
         do{
-            let user = try!context?.fetch(fetchUserResult)
-            self.user = user?[0]
+            let users = try!context?.fetch(fetchUserResult)
+            for u in users!{
+                print(u)
+            }
+            self.user = users?[0]
         }
          setViewControllers()
     }
@@ -42,21 +45,33 @@ class CustomTabbarController : UITabBarController{
     
     func setViewControllers(){
         UITabBar.appearance().tintColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-        let homeOrdererController = HomeOrdererController()
-        homeOrdererController.tabBarItem = customTabbarItem(image: UIImage(named: "home")!)
-        homeOrdererController.context = self.context!
-        homeOrdererController.user = self.user!
+        // user controller is view controller common
+        let userController = UserViewController()
+        userController.tabBarItem = customTabbarItem(image: UIImage(named: "user")!)
+        userController.user = self.user!
+        userController.context = self.context!
         
-        let historyController = HistoryController()
-        historyController.tabBarItem = customTabbarItem(image: UIImage(named: "list")!)
-        historyController.context = self.context!
-        historyController.user = self.user!
-        
-        let UserController = UIViewController()
-        UserController.tabBarItem = customTabbarItem(image: UIImage(named: "user")!)
-        
-//        viewControllers = [homeOrdererController,historyController,UserController]
-        viewControllers = [homeOrdererController,historyController]
+        if user?.typeOfUser == "Orderer"{
+            let homeOrdererController = HomeOrdererController()
+            homeOrdererController.tabBarItem = customTabbarItem(image: UIImage(named: "home")!)
+            homeOrdererController.context = self.context!
+            homeOrdererController.user = self.user!
+            
+            let historyController = HistoryController()
+            historyController.tabBarItem = customTabbarItem(image: UIImage(named: "list")!)
+            historyController.context = self.context!
+            historyController.user = self.user!
+            viewControllers = [homeOrdererController,historyController,userController]
+        }else{
+            let HomeShipperController = UIViewController()
+            HomeShipperController.view.backgroundColor = UIColor.red
+            HomeShipperController.tabBarItem = customTabbarItem(image: #imageLiteral(resourceName: "home"))
+            
+            let HistoryController = UIViewController()
+            HistoryController.view.backgroundColor = UIColor.blue
+            HistoryController.tabBarItem = customTabbarItem(image: #imageLiteral(resourceName: "list"))
+            viewControllers = [HomeShipperController, HistoryController, userController]
+        }
     }
     
     

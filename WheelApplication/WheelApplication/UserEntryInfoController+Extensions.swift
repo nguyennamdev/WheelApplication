@@ -72,8 +72,44 @@ extension UserEntryInforController {
             user?.typeOfUser = typeOfUserLabel.text!
             //save user by userdefault and islogged in
             UserDefaults.standard.setIsLoggedIn(value: true)
-            saveUser(user: self.user!)
-            //            restApiHandle.insertUserToDatabase(user: self.user!)
+            saveUser()
+        }
+    }
+    
+    private func saveUser(){
+        if userViewController != nil{
+            let fetchUser:NSFetchRequest<User> = User.fetchRequest()
+            // check user id exist or not
+            fetchUser.predicate = NSPredicate(format: "userId = %@", (self.user?.userId!)!)
+            if let fetchResults = try?context?.fetch(fetchUser){
+                if fetchResults?.count != 0{
+                    let managedObject = fetchResults![0]
+                    managedObject.setValue(self.user?.phoneNumber, forKey: "phoneNumber")
+                    managedObject.setValue(self.user?.regionActive, forKey: "regionActive")
+                    managedObject.setValue(self.user?.typeOfUser, forKey: "typeOfUser")
+                    let alert = UIAlertController(title: "Thay đổi thông tin", message: "Bạn có muốn thay đổi thông tin", preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: { (action) in
+                        self.restApiHandle.updateUserToDatabase(user: self.user!) // update user on api
+                        do {
+                            try self.context!.save()
+                        }catch {
+                            print("Error save entity")
+                        }
+                    })
+                    let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil)
+                    alert.addAction(cancelAction)
+                    alert.addAction(okAction)
+                    present(alert, animated: true, completion: nil)
+                }
+                
+            }
+        }else{
+            restApiHandle.insertUserToDatabase(user: self.user!) // save user on api
+            do {
+                try context!.save()
+            }catch {
+                print("Error save entity")
+            }
             let customTabbarController = CustomTabbarController()
             customTabbarController.context = self.context
             let rootViewController = UIApplication.shared.keyWindow?.rootViewController
@@ -83,22 +119,7 @@ extension UserEntryInforController {
             mainNavigation.viewControllers = [customTabbarController]
             dismiss(animated: false, completion: nil)
         }
-    }
-    
-    private func saveUser(user:User){
-        let entity:User = NSEntityDescription.insertNewObject(forEntityName: "User", into: context!) as! User
-        entity.userId = user.userId
-        entity.name = user.name
-        entity.email = user.email
-        entity.imageUrl = user.imageUrl
-        entity.phoneNumber = user.phoneNumber
-        entity.regionActive = user.regionActive
-        entity.typeOfUser = user.typeOfUser
-        do {
-            try context!.save()
-        }catch {
-            print("Error save entity")
-        }
+        
     }
     
 }

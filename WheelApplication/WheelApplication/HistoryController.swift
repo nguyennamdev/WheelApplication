@@ -94,7 +94,6 @@ class HistoryController : UITableViewController{
     
     override func viewDidAppear(_ animated: Bool) {
         navigationController?.navigationBar.topItem?.title = "Lịch sử đặt hàng"
-        navigationController?.navigationBar.topItem?.leftBarButtonItem = editButtonItem
     }
     
     override func viewWillDisappear(_ animated: Bool) {

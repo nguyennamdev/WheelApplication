@@ -28,7 +28,6 @@
 		84D66ACF1FAFFFCD0060F1AA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D66ACE1FAFFFCD0060F1AA /* AppDelegate.swift */; };
 		84D66AD41FAFFFCD0060F1AA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84D66AD21FAFFFCD0060F1AA /* Main.storyboard */; };
 		84D66AD71FAFFFCD0060F1AA /* WheelApplication.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 84D66AD51FAFFFCD0060F1AA /* WheelApplication.xcdatamodeld */; };
-		84D66AD91FAFFFCD0060F1AA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84D66AD81FAFFFCD0060F1AA /* Assets.xcassets */; };
 		84D66ADC1FAFFFCD0060F1AA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84D66ADA1FAFFFCD0060F1AA /* LaunchScreen.storyboard */; };
 		84D66AE71FAFFFCD0060F1AA /* WheelApplicationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D66AE61FAFFFCD0060F1AA /* WheelApplicationTests.swift */; };
 		84D66AF61FB003E30060F1AA /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D66AF51FB003E30060F1AA /* UIViewExtensions.swift */; };
@@ -36,6 +35,9 @@
 		84D66AFA1FB00EDE0060F1AA /* UserDefaultExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D66AF91FB00EDE0060F1AA /* UserDefaultExtensions.swift */; };
 		84D66AFE1FB011D70060F1AA /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D66AFD1FB011D70060F1AA /* LoginController.swift */; };
 		84D66B001FB05F380060F1AA /* UserEntryInforController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D66AFF1FB05F380060F1AA /* UserEntryInforController.swift */; };
+		84EC42791FCBFB0400F4C803 /* UserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EC42781FCBFB0400F4C803 /* UserViewController.swift */; };
+		84EC427B1FCBFB0C00F4C803 /* UserViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EC427A1FCBFB0C00F4C803 /* UserViewCell.swift */; };
+		84EC427D1FCBFE5900F4C803 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84EC427C1FCBFE5900F4C803 /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,7 +75,6 @@
 		84D66ACE1FAFFFCD0060F1AA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		84D66AD31FAFFFCD0060F1AA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		84D66AD61FAFFFCD0060F1AA /* WheelApplication.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = WheelApplication.xcdatamodel; sourceTree = "<group>"; };
-		84D66AD81FAFFFCD0060F1AA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		84D66ADB1FAFFFCD0060F1AA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		84D66ADD1FAFFFCD0060F1AA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		84D66AE21FAFFFCD0060F1AA /* WheelApplicationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WheelApplicationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -84,6 +85,9 @@
 		84D66AF91FB00EDE0060F1AA /* UserDefaultExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultExtensions.swift; sourceTree = "<group>"; };
 		84D66AFD1FB011D70060F1AA /* LoginController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		84D66AFF1FB05F380060F1AA /* UserEntryInforController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserEntryInforController.swift; sourceTree = "<group>"; };
+		84EC42781FCBFB0400F4C803 /* UserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserViewController.swift; sourceTree = "<group>"; };
+		84EC427A1FCBFB0C00F4C803 /* UserViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserViewCell.swift; sourceTree = "<group>"; };
+		84EC427C1FCBFE5900F4C803 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -143,6 +147,14 @@
 			name = History;
 			sourceTree = "<group>";
 		};
+		84C51C1B1FCBFA81001EA810 /* UserController */ = {
+			isa = PBXGroup;
+			children = (
+				84EC42781FCBFB0400F4C803 /* UserViewController.swift */,
+			);
+			name = UserController;
+			sourceTree = "<group>";
+		};
 		84D66AC21FAFFFCD0060F1AA = {
 			isa = PBXGroup;
 			children = (
@@ -171,8 +183,8 @@
 				84D66AF11FB002E80060F1AA /* Cells */,
 				84D66AF41FB003AB0060F1AA /* Helper */,
 				84D66ACE1FAFFFCD0060F1AA /* AppDelegate.swift */,
+				84EC427C1FCBFE5900F4C803 /* Assets.xcassets */,
 				84D66AD21FAFFFCD0060F1AA /* Main.storyboard */,
-				84D66AD81FAFFFCD0060F1AA /* Assets.xcassets */,
 				84D66ADA1FAFFFCD0060F1AA /* LaunchScreen.storyboard */,
 				84D66ADD1FAFFFCD0060F1AA /* Info.plist */,
 				84D66AD51FAFFFCD0060F1AA /* WheelApplication.xcdatamodeld */,
@@ -192,6 +204,7 @@
 		84D66AF11FB002E80060F1AA /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				84EC427A1FCBFB0C00F4C803 /* UserViewCell.swift */,
 				84969F191FC2DEB500AD2339 /* HistoryCell.swift */,
 			);
 			name = Cells;
@@ -215,6 +228,7 @@
 		84D66AF31FB002F40060F1AA /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				84C51C1B1FCBFA81001EA810 /* UserController */,
 				84969F161FC2CA7D00AD2339 /* History */,
 				8401AB401FB97F7A008A93E4 /* Home */,
 				8481701C1FB305410062DC4B /* Login */,
@@ -341,7 +355,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				84D66ADC1FAFFFCD0060F1AA /* LaunchScreen.storyboard in Resources */,
-				84D66AD91FAFFFCD0060F1AA /* Assets.xcassets in Resources */,
+				84EC427D1FCBFE5900F4C803 /* Assets.xcassets in Resources */,
 				84D66AD41FAFFFCD0060F1AA /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -439,11 +453,13 @@
 				84A1A1021FBAE95400356A32 /* MainNavigationController.swift in Sources */,
 				84A80F491FB7EB54001E67B3 /* RestApiHandle.swift in Sources */,
 				84D66AF61FB003E30060F1AA /* UIViewExtensions.swift in Sources */,
+				84EC427B1FCBFB0C00F4C803 /* UserViewCell.swift in Sources */,
 				844C85B41FC2AE72005F00B4 /* Post+CoreDataProperties.swift in Sources */,
 				84D66AFA1FB00EDE0060F1AA /* UserDefaultExtensions.swift in Sources */,
 				844C85AD1FC2AC99005F00B4 /* Address+CoreDataClass.swift in Sources */,
 				84D66AD71FAFFFCD0060F1AA /* WheelApplication.xcdatamodeld in Sources */,
 				844C85B31FC2AE72005F00B4 /* Post+CoreDataClass.swift in Sources */,
+				84EC42791FCBFB0400F4C803 /* UserViewController.swift in Sources */,
 				844C85B01FC2AC99005F00B4 /* User+CoreDataProperties.swift in Sources */,
 				84D66AFE1FB011D70060F1AA /* LoginController.swift in Sources */,
 			);
