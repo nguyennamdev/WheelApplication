@@ -27,9 +27,9 @@ class CustomTabbarController : UITabBarController{
         let fetchUserResult:NSFetchRequest<User> = User.fetchRequest()
         do{
             let users = try!context?.fetch(fetchUserResult)
-            for u in users!{
-                print(u)
-            }
+//            for u in users!{
+//                print(u)
+//            }
             self.user = users?[0]
         }
          setViewControllers()
@@ -63,14 +63,16 @@ class CustomTabbarController : UITabBarController{
             historyController.user = self.user!
             viewControllers = [homeOrdererController,historyController,userController]
         }else{
-            let HomeShipperController = UIViewController()
-            HomeShipperController.view.backgroundColor = UIColor.red
-            HomeShipperController.tabBarItem = customTabbarItem(image: #imageLiteral(resourceName: "home"))
+            let homeShipperTableViewController = HomeShipperTableViewController()
+            homeShipperTableViewController.tabBarItem = customTabbarItem(image: #imageLiteral(resourceName: "home"))
+            homeShipperTableViewController.user = self.user!
             
-            let HistoryController = UIViewController()
-            HistoryController.view.backgroundColor = UIColor.blue
-            HistoryController.tabBarItem = customTabbarItem(image: #imageLiteral(resourceName: "list"))
-            viewControllers = [HomeShipperController, HistoryController, userController]
+            let libraryTableViewController = LibraryTableViewController()
+            libraryTableViewController.context = self.context!
+            libraryTableViewController.tabBarItem = customTabbarItem(image: #imageLiteral(resourceName: "folder"))
+            
+           
+            viewControllers = [homeShipperTableViewController, libraryTableViewController, userController]
         }
     }
     

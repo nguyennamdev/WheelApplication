@@ -60,6 +60,8 @@ extension RestApiHandle{
     
 }
 
+
+
 extension RestApiHandle {
     // api for post
     
@@ -75,9 +77,9 @@ extension RestApiHandle {
         request.setValue("Application/json", forHTTPHeaderField: "Content-Type")
         request.httpMethod = method
         let parameters = ["postId": post.postId! , "userId" : post.user!.userId! , "prepayment" : post.prepayment,
-                          "price":post.price , "phoneReceiver" : post.phoneReceiver! , "addressStart": post.addressStart!,
+                          "price":post.price , "phoneReceiver" : post.phoneReceiver! ,"phoneOrderer": post.user!.phoneNumber!, "addressStart": post.addressStart!,
                           "addressDestination" : post.addressDestination! , "latitudeStart" : latitudeStart,
-                          "longtitudeStart" :longtitudeStart, "latitudeEnd" :latitudeEnd,
+                          "longtitudeStart" :longtitudeStart, "latitudeEnd" :latitudeEnd, "region":post.user!.regionActive!,
                           "longtitudeEnd" : longtitudeEnd, "description" : post.descriptionText!] as [String : Any]
         guard let httpBody = try?JSONSerialization.data(withJSONObject: parameters, options: []) else {
             return
@@ -119,10 +121,54 @@ extension RestApiHandle {
                     completeHandler(result == "OK" ? true : false)
                 }
             }
+            }.resume()
+    }
+    
+    public func getListPostByRegion(region:String , completeHandler:@escaping ([Post]) -> ()){
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+        var urlComponents = URLComponents(string:"http://localhost:8000/posts/list_post") // create url and query
+        urlComponents?.queryItems = [
+            URLQueryItem(name: "region", value: region)
+        ]
+        guard let url = urlComponents?.url! else {
+            print("Error : cannot create URL")
+            return
+        }
+        var posts:[Post]?
+        URLSession.shared.dataTask(with: URLRequest(url: url)) { (data, response, err) in
+            if err != nil {
+                return
+            }
+            guard let jsonData = data else{
+                return
+            }
+            do{
+                if let json = try?JSONSerialization.jsonObject(with: jsonData, options: .mutableContainers){
+                    print(json)
+                    guard let  dictionary = json as? [String:AnyObject],
+                        let _ = dictionary["result"] as? String,
+                        let postResult = dictionary["data"] as? [Any]
+                        else{
+                            return
+                    }
+                    posts = [Post]()
+                    // parse json
+                    for p in postResult{
+                        let post = Post(context: context)
+                        if let postDict = p as? NSDictionary{
+                            post.setValueWithDictionary(dictionary: postDict)
+                            // add to array post
+                            posts?.append(post)
+                        }
+                    }
+                    completeHandler(posts!)
+                }
+            }
         }.resume()
-        
     }
 }
+
 
 
 

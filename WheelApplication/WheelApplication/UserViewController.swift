@@ -136,7 +136,6 @@ class UserViewController: UIViewController , UITableViewDataSource , UITableView
     let detailProfileTableView:UITableView = {
         let tableView = UITableView(frame: .zero, style: UITableViewStyle.plain)
         tableView.backgroundColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
-    
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
@@ -150,7 +149,6 @@ class UserViewController: UIViewController , UITableViewDataSource , UITableView
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
     }()
-    
     
     let editUserButton:UIButton = {
         let button = UIButton(type: UIButtonType.system)
