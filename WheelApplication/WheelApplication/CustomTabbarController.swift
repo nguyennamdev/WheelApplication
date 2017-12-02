@@ -66,6 +66,7 @@ class CustomTabbarController : UITabBarController{
             let homeShipperTableViewController = HomeShipperTableViewController()
             homeShipperTableViewController.tabBarItem = customTabbarItem(image: #imageLiteral(resourceName: "home"))
             homeShipperTableViewController.user = self.user!
+            homeShipperTableViewController.context = self.context!
             
             let libraryTableViewController = LibraryTableViewController()
             libraryTableViewController.context = self.context!

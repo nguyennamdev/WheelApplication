@@ -11,6 +11,7 @@ import CoreData
 
 class HomeShipperTableViewController: UITableViewController {
     
+    var context:NSManagedObjectContext?
     let cellId = "CellId"
     let restApiHandler = RestApiHandle.getInstance()
     var user:User?
@@ -29,15 +30,21 @@ class HomeShipperTableViewController: UITableViewController {
         tableView.register(ShipperViewCell.self, forCellReuseIdentifier: cellId)
         tableView.separatorStyle = .none
         view.addSubview(activityIndicatorView)
-        
         activityIndicatorView.center = view.center
         activityIndicatorView.startAnimating()
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
         // get list post by api with region current user
         restApiHandler.getListPostByRegion(region: (user?.regionActive)!) { (posts) in
             self.posts = posts
+            print("posts \(posts)")
         }
-        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        navigationController?.navigationBar.topItem?.title = "Đơn hàng"
     }
     // MARK: - Table view data source
     
@@ -65,12 +72,15 @@ class HomeShipperTableViewController: UITableViewController {
         return cell
     }
     
+    
     let activityIndicatorView:UIActivityIndicatorView = {
         let activity = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
         activity.translatesAutoresizingMaskIntoConstraints = false
         return activity
     }()
 }
+
+
 
 extension HomeShipperTableViewController : ShipperDelegate{
     func didCallOrderer(phoneNumber: String) {
@@ -79,15 +89,17 @@ extension HomeShipperTableViewController : ShipperDelegate{
         }
     }
     
-    func didSavePost(post: Post , sender:UIButton) {
+    func didSavePost(post:Post,sender:UIButton) {
+        
         let delegate = UIApplication.shared.delegate as? AppDelegate
         let context = delegate?.persistentContainer.viewContext
         // check post is exist
         let fetchPost:NSFetchRequest<Post> = Post.fetchRequest()
         fetchPost.predicate = NSPredicate(format: "postId = %@", post.postId!)
         if let fetchResults = try?context?.fetch(fetchPost){
-            if fetchResults?.count == 0{
-                sender.backgroundColor = UIColor.black
+            if fetchResults?.count == 1{
+                post.isSave = true
+                sender.tintColor = UIColor.black
                 do{
                     try context?.save()
                 }catch let err{
@@ -103,6 +115,26 @@ extension HomeShipperTableViewController : ShipperDelegate{
     }
 }
 
+extension HomeShipperTableViewController{
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        clearDataAlterSwitchController()
+    }
+    
+    func clearDataAlterSwitchController(){
+        let fetchPost:NSFetchRequest<Post> = Post.fetchRequest()
+        fetchPost.predicate = NSPredicate(format: "isSave = %@", false as CVarArg )
+        do{
+            
+            let fetchResults = try context?.fetch(fetchPost)
+            for item in fetchResults!{
+                context?.delete(item)
+            }
+        }catch let err{
+            print(err)
+        }
+    }
+}
 
 
 

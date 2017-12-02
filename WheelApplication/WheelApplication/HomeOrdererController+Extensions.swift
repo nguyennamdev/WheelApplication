@@ -142,6 +142,7 @@ extension HomeOrdererController{
                 post.postId = String().randomString()
                 messageAlert = "Bài đăng của bạn đã được đăng tải lên ."
             }
+            activityIndicatorView.startAnimating()
             // insert to server
             restApiHandler.insertEditPost(method:method, path: path, post: post, locationStart: locationStart, locationEnd: locationEnd, completeHandler: { (isComplete) in
                 let alert:UIAlertController?
@@ -161,6 +162,7 @@ extension HomeOrdererController{
                     alert?.addAction(okAction)
                 }
                 self.present(alert!, animated: true, completion: nil)
+                self.activityIndicatorView.stopAnimating()
             })
         }
     }

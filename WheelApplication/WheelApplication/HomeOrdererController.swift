@@ -64,6 +64,7 @@ class HomeOrdererController : UIViewController , UITextFieldDelegate, CLLocation
         view.addSubview(entryViewContainner)
         view.addSubview(bookButton)
         view.addSubview(bottomEntryViewContainer)
+        view.addSubview(activityIndicatorView)
         bottomEntrySetupViews()
         entryViewSetupViews()
         // contraint
@@ -77,6 +78,7 @@ class HomeOrdererController : UIViewController , UITextFieldDelegate, CLLocation
         bookButtonBottomContaint = NSLayoutConstraint(item: bookButton, attribute: .bottom, relatedBy: .equal, toItem: bottomLayoutGuide, attribute: .top, multiplier: 1, constant:-8)
         bookButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
         view.addConstraint(bookButtonBottomContaint!)
+        activityIndicatorView.center = view.center
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
@@ -313,7 +315,6 @@ class HomeOrdererController : UIViewController , UITextFieldDelegate, CLLocation
         return textField
     }()
     
-    
     let priceTextField:UITextField = {
         let textField = UITextField()
         textField.borderStyle = .line
@@ -328,7 +329,6 @@ class HomeOrdererController : UIViewController , UITextFieldDelegate, CLLocation
         return textField
     }()
     
-    
     let phoneReceiverTextField:UITextField = {
         let textField = UITextField()
         textField.borderStyle = .line
@@ -342,7 +342,6 @@ class HomeOrdererController : UIViewController , UITextFieldDelegate, CLLocation
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()
-    
     
     let descriptionTextField:UITextField = {
         let textField = UITextField()
@@ -375,7 +374,6 @@ class HomeOrdererController : UIViewController , UITextFieldDelegate, CLLocation
         return button
     }()
     
-    
     let prepaymentImageView:UIImageView = {
         let image = UIImageView()
         image.contentMode = .center
@@ -405,14 +403,20 @@ class HomeOrdererController : UIViewController , UITextFieldDelegate, CLLocation
         return image
     }()
     
-    let descriptionImageView:UIImageView =
-    {
+    let descriptionImageView:UIImageView = {
         let image = UIImageView()
         image.contentMode = .center
         image.clipsToBounds = true
         image.image = #imageLiteral(resourceName: "edit-pencil-symbol")
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
+    }()
+    
+    let activityIndicatorView:UIActivityIndicatorView = {
+        let activityView = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.whiteLarge)
+        activityView.stopAnimating()
+        activityView.translatesAutoresizingMaskIntoConstraints = false
+        return activityView
     }()
     
 }

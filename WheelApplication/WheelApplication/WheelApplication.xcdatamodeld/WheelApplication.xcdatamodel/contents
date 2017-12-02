@@ -14,6 +14,8 @@
         <attribute name="date" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="descriptionText" optional="YES" attributeType="String" defaultValueString="&quot;&quot;" syncable="YES"/>
         <attribute name="isComplete" optional="YES" attributeType="Boolean" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="isSave" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="isShipper" optional="YES" attributeType="Boolean" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="latitudeEnd" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="latitudeStart" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="longtitudeEnd" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
@@ -38,7 +40,7 @@
     </entity>
     <elements>
         <element name="Address" positionX="-153" positionY="288" width="128" height="135"/>
-        <element name="Post" positionX="-360" positionY="342" width="128" height="285"/>
+        <element name="Post" positionX="-360" positionY="342" width="128" height="315"/>
         <element name="User" positionX="-594" positionY="243" width="128" height="163"/>
     </elements>
 </model>

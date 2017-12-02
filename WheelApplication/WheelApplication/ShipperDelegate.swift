@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol ShipperDelegate {
+@objc protocol ShipperDelegate {
     func didCallOrderer(phoneNumber:String)
-    func didSavePost(post:Post, sender:UIButton)
+    @objc optional func didSavePost(post:Post, sender:UIButton)
 }

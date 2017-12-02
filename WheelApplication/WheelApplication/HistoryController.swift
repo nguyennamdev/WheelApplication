@@ -14,13 +14,13 @@ class HistoryController : UITableViewController{
     var posts:[Post]?
     var user:User?
     var context:NSManagedObjectContext?
-    let cellId = "historyCell"
+    let cellId = "cellId"
     let restApiHandle = RestApiHandle.getInstance()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         print("his did load")
-        tableView.register(HistoryCell.self, forCellReuseIdentifier: cellId)
+        tableView.register(BaseCell.self, forCellReuseIdentifier: cellId)
         view.backgroundColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
         navigationItem.leftBarButtonItem = editButtonItem
     }
@@ -44,7 +44,7 @@ class HistoryController : UITableViewController{
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! HistoryCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! BaseCell
         cell.post = posts![indexPath.row]
         cell.user = self.user!
         return cell
@@ -68,7 +68,6 @@ class HistoryController : UITableViewController{
             homeOdererController.user = self.user
             homeOdererController.postHistory = self.posts?[indexPath.row]
             self.navigationController?.pushViewController(homeOdererController, animated: true)
-            
         }
         editAction.backgroundColor = UIColor.purple
         /////////// MARK : Delete action /////////////////

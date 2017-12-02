@@ -9,12 +9,49 @@
 import UIKit
 
 class BaseCell:UITableViewCell {
+
+    var post:Post?{
+        didSet{
+            guard let addressStart = post?.addressStart,
+                let addressDestination = post?.addressDestination,
+                let prepayment = post?.prepayment,
+                let price = post?.price,
+                let phone = post?.phoneReceiver
+                else {
+                    return
+            }
+            setAttributeForLabel(title: "Địa chỉ bắt đầu ", value: addressStart, label: addressStartContentLabel)
+            setAttributeForLabel(title: "Địa chỉ người nhận ", value: addressDestination, label: addressDestinationContentLabel)
+            setAttributeForLabel(title: "Tiền ứng trước ", value: "\(prepayment)", label: prepaymentContentLabel)
+            setAttributeForLabel(title: "Phí vận chuyển ", value: "\(price)", label: priceContentLabel)
+            setAttributeForLabel(title: "SĐT người nhận ", value: phone, label: phoneReceiverContentLabel)
+            setAttributeForLabel(title: "Mô tả thêm ", value: post?.descriptionText ?? "", label: descriptionContentLabel)
+        }
+    }
+    var user:User?{
+        didSet{
+            guard let name = user?.name ,
+                let imageUrl = user?.imageUrl
+                else {
+                    return
+            }
+            do{
+                let data = try Data(contentsOf: URL(string: imageUrl)!)
+                profileImageView.image =  UIImage(data: data)
+            }catch {
+                profileImageView.image = nil
+                profileImageView.backgroundColor = UIColor.red
+            }
+            nameProfileLabel.text = name
+        }
+    }
+    
+    
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupViews()
         setupImageViews()
         setupContentViews()
-        
     }
     
     required init?(coder aDecoder: NSCoder) {

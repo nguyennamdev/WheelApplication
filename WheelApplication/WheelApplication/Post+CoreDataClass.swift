@@ -20,7 +20,7 @@ public class Post: NSManagedObject {
         self.price = (dictionary.value(forKey: "price") as? Double)!
         self.date = dictionary.value(forKey: "date") as? String
         self.phoneReceiver = dictionary.value(forKey: "phoneReceiver") as? String
-        self.descriptionText = dictionary.value(forKey: "description") as? String
+        self.descriptionText = dictionary.value(forKey: "descriptionText") as? String
         self.latitudeStart = dictionary.value(forKeyPath: "locationStart.latitude") as! Double
         self.longtitudeStart = dictionary.value(forKeyPath: "locationStart.longtitude") as! Double
         self.latitudeEnd = dictionary.value(forKeyPath: "locationEnd.latitude") as! Double

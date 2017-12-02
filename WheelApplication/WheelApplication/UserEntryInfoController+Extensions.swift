@@ -67,12 +67,24 @@ extension UserEntryInforController {
             present(alertDialog, animated: true, completion: nil)
         }
         else{
-            user?.phoneNumber = phoneNumberTextField.text!
-            user?.regionActive = regionLabel.text!
-            user?.typeOfUser = typeOfUserLabel.text!
-            //save user by userdefault and islogged in
-            UserDefaults.standard.setIsLoggedIn(value: true)
-            saveUser()
+            // check invalid phone number
+            let pattern = "^(01[2689]|09)[0-9]{8}$"
+            let predicate = NSPredicate(format: "self MATCHES [c] %@", pattern)
+            if !predicate.evaluate(with: self.phoneNumberTextField.text) {
+                let alertDialog = UIAlertController(title: "Nhập số điện thoại", message: "Số điện thoại của bạn nhập không hợp lệ", preferredStyle: .alert)
+                let actionAlert = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+                alertDialog.addAction(actionAlert)
+                present(alertDialog, animated: true, completion: {
+                    self.phoneNumberTextField.text = ""
+                })
+            }else{
+                user?.phoneNumber = phoneNumberTextField.text!
+                user?.regionActive = regionLabel.text!
+                user?.typeOfUser = typeOfUserLabel.text!
+                //save user by userdefault and islogged in
+                UserDefaults.standard.setIsLoggedIn(value: true)
+                saveUser()
+            }
         }
     }
     

@@ -11,43 +11,24 @@ import UIKit
 class ShipperViewCell:BaseCell {
     
     var shipperDelegate:ShipperDelegate?
-    
-    var post:Post?{
+    override var post:Post?{
         didSet{
-            
             guard let addressStart = post?.addressStart,
                 let addressDestination = post?.addressDestination,
                 let prepayment = post?.prepayment,
                 let price = post?.price,
-                let phoneReceiver = post?.phoneReceiver,
-                let date = post?.date
-            else {
-                return
+                let phone = post?.phoneReceiver,
+                let phoneOderer = post?.phoneOrderer
+                else {
+                    return
             }
-            timeLabel.text = date
+            phoneOrdererLabel.text = phoneOderer
             setAttributeForLabel(title: "Địa chỉ bắt đầu ", value: addressStart, label: addressStartContentLabel)
             setAttributeForLabel(title: "Địa chỉ người nhận ", value: addressDestination, label: addressDestinationContentLabel)
             setAttributeForLabel(title: "Tiền ứng trước ", value: "\(prepayment)", label: prepaymentContentLabel)
             setAttributeForLabel(title: "Phí vận chuyển ", value: "\(price)", label: priceContentLabel)
-            setAttributeForLabel(title: "SĐT người nhận ", value: phoneReceiver, label: phoneReceiverContentLabel)
+            setAttributeForLabel(title: "SĐT người nhận ", value: phone, label: phoneReceiverContentLabel)
             setAttributeForLabel(title: "Mô tả thêm ", value: post?.descriptionText ?? "", label: descriptionContentLabel)
-        }
-    }
-    var user:User?{
-        didSet{
-            guard let name = user?.name ,
-                let imageUrl = user?.imageUrl
-                else {
-                    return
-            }
-            do{
-                let data = try Data(contentsOf: URL(string: imageUrl)!)
-                profileImageView.image =  UIImage(data: data)
-            }catch {
-                profileImageView.image = nil
-                profileImageView.backgroundColor = UIColor.red
-            }
-            nameProfileLabel.text = name
         }
     }
     
@@ -58,18 +39,21 @@ class ShipperViewCell:BaseCell {
         callButton.addTarget(self, action: #selector(callOrderer), for: .touchUpInside)
         saveButton.addTarget(self, action: #selector(savePost), for: .touchUpInside)
     }
-
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     
     func setupSubViews(){
         addSubview(dividerLine)
         addSubview(actionContainerView)
         addSubview(speratorView)
+        addSubview(phoneOrdererLabel)
         actionContainerView.addSubview(callButton)
         actionContainerView.addSubview(saveButton)
+        
+        phoneOrdererLabel.anchorWithConstants(top: topAnchor, left: nil, bottom: nil, right: rightAnchor, topConstant: 8, leftConstant: 0, bottomConstant: 0, rightConstant: 8)
         
         dividerLine.topAnchor.constraint(equalTo: descriptionImageView.bottomAnchor, constant: 4).isActive = true
         dividerLine.leftAnchor.constraint(equalTo: leftAnchor, constant: 12).isActive = true
@@ -91,17 +75,23 @@ class ShipperViewCell:BaseCell {
         speratorView.anchorWithConstants(top: actionContainerView.bottomAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor)
     }
     
-    
-    
     // Mark : Views
-
+    
+    let phoneOrdererLabel:UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 13)
+        label.textColor = UIColor.lightGray
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
     let dividerLine:UIView = {
         let view = UIView()
         view.backgroundColor = UIColor.gray
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-
+    
     let actionContainerView:UIView = {
         let view = UIView()
         view.isUserInteractionEnabled = true
@@ -148,11 +138,11 @@ extension ShipperViewCell {
         shipperDelegate?.didCallOrderer(phoneNumber: phoneOrderer)
     }
     
-    func savePost(sender:UIButton){
+   @objc func savePost(sender:UIButton){
         guard let post = self.post else {
             return
         }
-        shipperDelegate?.didSavePost(post: post, sender:sender)
+        shipperDelegate?.didSavePost!(post: post, sender:sender)
     }
 }
 

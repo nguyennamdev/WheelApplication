@@ -8,6 +8,7 @@
 
 import CoreLocation
 import UIKit
+import CoreData
 
 class RestApiHandle: NSObject {
     private static var instance = RestApiHandle()
@@ -19,7 +20,7 @@ class RestApiHandle: NSObject {
 
 extension RestApiHandle{
     //api for user
-    
+
     private func insertEditUser(method:String, path:String,user:User){
         let url = URL(string: "http://localhost:8000/users/\(path)")
         var request = URLRequest(url: url!)
@@ -59,8 +60,6 @@ extension RestApiHandle{
     }
     
 }
-
-
 
 extension RestApiHandle {
     // api for post
@@ -125,6 +124,7 @@ extension RestApiHandle {
     }
     
     public func getListPostByRegion(region:String , completeHandler:@escaping ([Post]) -> ()){
+        
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
         var urlComponents = URLComponents(string:"http://localhost:8000/posts/list_post") // create url and query
@@ -145,7 +145,6 @@ extension RestApiHandle {
             }
             do{
                 if let json = try?JSONSerialization.jsonObject(with: jsonData, options: .mutableContainers){
-                    print(json)
                     guard let  dictionary = json as? [String:AnyObject],
                         let _ = dictionary["result"] as? String,
                         let postResult = dictionary["data"] as? [Any]
@@ -153,11 +152,14 @@ extension RestApiHandle {
                             return
                     }
                     posts = [Post]()
+                    
                     // parse json
                     for p in postResult{
-                        let post = Post(context: context)
                         if let postDict = p as? NSDictionary{
+                            let post = NSEntityDescription.insertNewObject(forEntityName: "Post", into: context) as! Post
                             post.setValueWithDictionary(dictionary: postDict)
+                            post.isShipper = true
+                            post.isSave = false // set equal false because don't want save post when switch scene
                             // add to array post
                             posts?.append(post)
                         }
